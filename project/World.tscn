@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Terrain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World.gd" type="Script" id=3]
+[ext_resource path="res://Coin.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2525.5, 13 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Terrain" parent="." instance=ExtResource( 2 )]
+scale = Vector2( 2, 2 )
+tile_data = PoolIntArray( 131091, 0, 458765, 131092, 0, 458766, 131093, 0, 458766, 131094, 0, 458766, 131095, 0, 458766, 131096, 0, 458767, 262152, 0, 458765, 262153, 0, 458766, 262154, 0, 458766, 262155, 0, 458766, 262156, 0, 458766, 262157, 0, 458767, 458775, 0, 458765, 458776, 0, 458766, 458777, 0, 458766, 458778, 0, 458766, 458779, 0, 458766, 458780, 0, 458767, 589826, 0, 458765, 589827, 0, 458766, 589828, 0, 458766, 589829, 0, 458766, 589830, 0, 458766, 589831, 0, 458767, 655377, 0, 458765, 655378, 0, 458766, 655379, 0, 458766, 655380, 0, 458767, 786458, 0, 458765, 786459, 0, 458766, 786460, 0, 458767, 851976, 0, 458765, 851977, 0, 458766, 851978, 0, 458766, 851979, 0, 458766, 851980, 0, 458766, 851981, 0, 458767, 983058, 0, 458765, 983059, 0, 458766, 983060, 0, 458766, 983061, 0, 458766, 983062, 0, 458766, 983063, 0, 458766, 983064, 0, 458766, 983065, 0, 458767, 1114113, 0, 458765, 1114114, 0, 458766, 1114115, 0, 458766, 1114116, 0, 458766, 1114117, 0, 458766, 1114118, 0, 458767 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 120, 500 )
+scale = Vector2( 0.75, 0.75 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.3
+drag_margin_right = 0.3
+
+[node name="KillPlane" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillPlane"]
+position = Vector2( 552, 826 )
+shape = SubResource( 1 )
+
+[node name="Coin" parent="." instance=ExtResource( 4 )]
+position = Vector2( 170, 273 )
+
+[node name="Coin2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 931, 201 )
+
+[node name="Coin3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 683, 311 )
+
+[node name="Coin4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 509, 287 )
+
+[node name="Coin5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 397, 424 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 46.0
+margin_bottom = 22.0
+rect_scale = Vector2( 4, 4 )
+text = "Score: 0"
+
+[node name="Winner" type="Label" parent="HUD"]
+visible = false
+margin_left = 316.0
+margin_top = 196.0
+margin_right = 421.0
+margin_bottom = 244.0
+rect_scale = Vector2( 4, 4 )
+text = "Winner Winner
+Chicken Dinner!!
+Game Over"
+align = 1
+valign = 1
+
+[connection signal="body_entered" from="KillPlane" to="." method="_on_KillPlane_body_entered"]
+[connection signal="body_entered" from="Coin" to="." method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="Coin2" to="." method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="Coin3" to="." method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="Coin4" to="." method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="Coin5" to="." method="_on_Coin_body_entered"]
